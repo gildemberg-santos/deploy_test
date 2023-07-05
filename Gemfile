@@ -9,7 +9,7 @@ gem 'rails', '~> 5.2.8', '>= 5.2.8.1'
 # gem 'sqlite3'
 gem 'pg', '~> 1.5', '>= 1.5.3'
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 4.3.9'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -58,6 +58,9 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
   gem 'rspec'
+  gem 'bundler-audit'
+  gem 'brakeman'
+  gem 'rubocop'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
