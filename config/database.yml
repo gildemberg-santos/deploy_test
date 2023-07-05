@@ -4,7 +4,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: rails
   password: password
-  host: rails_test
+  host: localhost
   timeout: 5000
 
 development:
