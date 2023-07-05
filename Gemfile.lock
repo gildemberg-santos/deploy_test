@@ -250,6 +250,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.1.0)
   brakeman
+  bundler
   bundler-audit
   byebug
   capybara (>= 2.15)
