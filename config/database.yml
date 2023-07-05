@@ -8,17 +8,17 @@ default: &default
   timeout: 5000
 
 development:
-  <<: *defaults
+  <<: *default
   database: realty_development
 
 test:
-  <<: *defaults
+  <<: *default
   database: realty_test
 
 staging:
-  <<: *defaults
+  <<: *default
   database: realty_development
 
 production:
-  <<: *defaults
+  <<: *default
   database: realty_production
