@@ -2,14 +2,17 @@
 FROM ubuntu:latest
 
 RUN apt-get -y update && apt-get -y upgrade
-RUN apt-get install -y git curl autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev
+RUN apt-get install -y rbenv
 
-RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
+# RUN echo "rbenv install --list"
+# RUN rbenv install 3.0.6
+# RUN gem install bundler
+# RUN bundle install
+# CMD ["bundle", "exec", "rails", "server"]
 
-RUN echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-RUN echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 
-RUN rbenv install 3.2.2
+
+
 # RUN apt-get -y install curl git wget libpq-dev node libpq-dev vim
 
 # # Install mpapis
