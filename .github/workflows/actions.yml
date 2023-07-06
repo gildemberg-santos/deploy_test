@@ -6,7 +6,7 @@ on:
     branches: [ "development", "qa", "main" ]
 jobs:
   build:
-    name: "Build - ${{ matrix.ruby }} - ${{ github.ref }}"
+    name: "Build - ${{ github.event_name }}"
     runs-on: ubuntu-latest
     services:
       postgres:
