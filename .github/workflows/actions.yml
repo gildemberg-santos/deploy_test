@@ -1,0 +1,40 @@
+name: "Entrega Continua CI"
+on:
+  push:
+    branches: [ "dev/*", "development", "qa/*", "qa", "master" ]
+  pull_request:
+    branches: [ "dev/*", "development", "qa/*", "qa", "master" ]
+jobs:
+  build:
+    name: "Build - ${{ github.event_name }}"
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
+        with:
+          bundler-cache: true
+      - name: Set up database structure
+        run: bin/rails db:structure:load
+      - name: Run tests
+        run: bin/bundle exec rspec
+      - name: Identificar Branch
+        run: |
+          if [[ "${{ github.ref }}" =~ ^refs/heads/qa/ ]]; then
+            echo "Esta é uma branch de feature"
+          else
+            echo "Esta não é uma branch de feature"
+          fi
