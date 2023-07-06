@@ -1,9 +1,9 @@
 name: "Entrega Continua CI"
 on:
   push:
-    branches: [ "development", "qa", "main" ]
+    branches: [ "dev/*", "development", "qa/*", "qa", "master" ]
   pull_request:
-    branches: [ "development", "qa", "main" ]
+    branches: [ "dev/*", "development", "qa/*", "qa", "master" ]
 jobs:
   build:
     name: "Build - ${{ github.event_name }}"
@@ -31,3 +31,10 @@ jobs:
         run: bin/rails db:structure:load
       - name: Run tests
         run: bin/bundle exec rspec
+      - name: Identificar Branch
+        run: |
+          if [[ "${{ github.ref }}" =~ ^refs/heads/qa/ ]]; then
+            echo "Esta é uma branch de feature"
+          else
+            echo "Esta não é uma branch de feature"
+          fi
