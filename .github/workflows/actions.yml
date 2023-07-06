@@ -1,9 +1,10 @@
 name: "Entrega Continua CI"
 on:
-  push:
-    branches: [ "dev/*", "development", "qa/*", "qa", "master" ]
+  # push:
+  #   branches: [ "*" ]
   pull_request:
-    branches: [ "dev/*", "development", "qa/*", "qa", "master" ]
+    branches: [ "*" ]
+    types: [opened, synchronize, reopened]
 jobs:
   build:
     name: "Build - ${{ github.event_name }}"
@@ -33,8 +34,15 @@ jobs:
         run: bin/bundle exec rspec
       - name: Identificar Branch
         run: |
-          if [[ "${{ github.ref }}" =~ ^refs/heads/qa/ ]]; then
-            echo "Esta é uma branch de feature"
+          if [[ "${{ github.ref }}" =~ ^refs/heads/qa_/ ]]; then
+            echo "Esta é uma branch de qa"
           else
-            echo "Esta não é uma branch de feature"
+            echo "Esta não é uma branch de qa"
+          fi
+      - name: Identificar PR aberto
+        run: |
+          if [ "${{ github.event.pull_request.state }}" == "open" ]; then
+            echo "A PR está aberta."
+          else
+            echo "A PR não está aberta."
           fi
