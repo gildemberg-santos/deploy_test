@@ -1,11 +1,12 @@
-name: "{{ github.event_name }} CI"
+name: "Entrega Continua CI"
 on:
   push:
     branches: [ "development", "qa", "main" ]
   pull_request:
     branches: [ "development", "qa", "main" ]
 jobs:
-  test:
+  build:
+    name: "Build - ${{ matrix.ruby }} - ${{ github.ref }}"
     runs-on: ubuntu-latest
     services:
       postgres:
