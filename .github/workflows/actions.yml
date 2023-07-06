@@ -4,6 +4,7 @@ on:
     branches: [ "dev/*", "development", "qa/*", "qa", "master" ]
   pull_request:
     branches: [ "dev/*", "development", "qa/*", "qa", "master" ]
+    types: [opened, synchronize, reopened]
 jobs:
   build:
     name: "Build - ${{ github.event_name }}"
@@ -37,4 +38,11 @@ jobs:
             echo "Esta é uma branch de feature"
           else
             echo "Esta não é uma branch de feature"
+          fi
+      - name: Identificar PR aberto
+        run: |
+          if [ "${{ github.event.pull_request.state }}" == "open" ]; then
+            echo "A PR está aberta."
+          else
+            echo "A PR não está aberta."
           fi
