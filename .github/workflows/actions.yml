@@ -1,7 +1,7 @@
 name: "Entrega Continua CI"
 on:
-  push:
-    branches: [ "*" ]
+  # push:
+  #   branches: [ "*" ]
   pull_request:
     branches: [ "*" ]
     types: [opened, synchronize, reopened]
