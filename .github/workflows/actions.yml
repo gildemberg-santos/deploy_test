@@ -44,3 +44,15 @@ jobs:
           else
             echo "A PR não está aberta."
           fi
+  deploy:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+      - name: Deploy To Cloud66
+        uses: cloud66-oss/github-actions@1.0.0
+        with:
+          CLOUD66_STACK: "my_stack_name"
+          CLOUD66_TOKEN: ${{ secrets.CLOUD66_TOKEN }} # cx dump-token | base64
