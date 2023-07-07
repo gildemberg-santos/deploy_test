@@ -1,7 +1,5 @@
-name: "Entrega Continua CI"
+name: "CI"
 on:
-  # push:
-  #   branches: [ "*" ]
   pull_request:
     branches: [ "*" ]
     types: [opened, synchronize, reopened]
