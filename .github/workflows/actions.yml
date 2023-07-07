@@ -55,4 +55,4 @@ jobs:
         uses: cloud66-oss/github-actions@1.0.0
         with:
           CLOUD66_STACK: "my_stack_name"
-          CLOUD66_TOKEN: ${{ secrets.CLOUD66_TOKEN }} # cx dump-token | base64
+          CLOUD66_TOKEN: ${{ secrets.CLOUD66_TOKEN }}
