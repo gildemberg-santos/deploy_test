@@ -49,9 +49,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
       - name: Deploy To Cloud66
         uses: cloud66-oss/github-actions@1.0.0
-        with:
-          CLOUD66_STACK: "deploy_test"
-          CLOUD66_TOKEN: ${{ secrets.CLOUD66_TOKEN }}
+      - name: Command
+        run: cx login --auth-token ${{ secrets.CLOUD66_TOKEN }} && cx redeploy --stack ${{ secrets.CLOUD66_STACK }} --environment ${{ secrets.CLOUD66_ENVIRONMENT }} --branch ${{ github.ref }}
