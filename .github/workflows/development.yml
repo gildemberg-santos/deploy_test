@@ -7,9 +7,9 @@
 name: "Development CI"
 on:
   push:
-    branches: [ "qa" ]
+    branches: [ "development" ]
   pull_request:
-    branches: [ "qa" ]
+    branches: [ "development" ]
 jobs:
   test:
     runs-on: ubuntu-latest
