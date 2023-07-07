@@ -53,5 +53,5 @@ jobs:
       - name: Deploy To Cloud66
         uses: cloud66-oss/github-actions@1.0.0
         with:
-          CLOUD66_STACK: "my_stack_name"
+          CLOUD66_STACK: "deploy_test"
           CLOUD66_TOKEN: ${{ secrets.CLOUD66_TOKEN }}
