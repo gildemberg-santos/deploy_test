@@ -1,7 +1,7 @@
 name: "CI"
 on:
   push:
-    branches: [ qa, master ]
+    branches: [ qa, main ]
   pull_request:
     branches: [ "*" ]
     types: [opened, synchronize, reopened]
@@ -47,7 +47,7 @@ jobs:
             echo "A PR não está aberta."
           fi
   deploy:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     needs: build
     runs-on: ubuntu-latest
 
