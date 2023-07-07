@@ -55,4 +55,3 @@ jobs:
         with:
           CLOUD66_STACK: "deploy_test"
           CLOUD66_TOKEN: ${{ secrets.CLOUD66_TOKEN }}
-        run: echo cx stacks list
