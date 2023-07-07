@@ -1,10 +1,7 @@
 name: "CI"
 on:
   push:
-    branches: [ qa, main ]
-  pull_request:
     branches: [ "*" ]
-    types: [opened, synchronize, reopened]
 jobs:
   build:
     name: "Build - ${{ github.event_name }}"
