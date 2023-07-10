@@ -37,23 +37,30 @@ jobs:
           if [[ "${{ github.ref }}" =~ ^refs/heads/qa_/ ]]; then
             echo "Faça deploy para QA"
           fi
-  deploy:
+  deploy_qa:
+    name: Deploy Qa
     needs: build
-    # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' || github.ref == 'refs/heads/qa_*' || github.ref == 'refs/heads/qa' }}
+    if: ${{ github.ref == 'refs/heads/qa_*' || github.ref == 'refs/heads/qa' }}
     runs-on: ubuntu-latest
-
     steps:
-      - name: Deploy
+      - name: Deploy Production
         uses: actions/checkout@v3
-
-      - name: Deploy Qa
+      - name: Start Deploy
         run: |
-          if [[ "${{ github.ref }}" =~ ^refs/heads/qa_/ || "${{ github.ref }}" == "refs/heads/qa" ]]; then
+          if [[ "${{ github.ref }}" == "refs/heads/qa" ]]; then
             echo "Faça deploy para QA"
           fi
-
-      - name: Deploy Production
-        run: |
-          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            echo "Faça deploy para produção"
+          if [[ "${{ github.ref }}" =~ ^refs/heads/qa_/ ]]; then
+            echo "Faça deploy para QA de uma branch específica"
           fi
+  deploy_production:
+    name: Deploy Production
+    needs: build
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Production
+        uses: actions/checkout@v3
+      - name: Start Deploy
+        run: |
+          echo "Faça deploy para produção"
