@@ -44,7 +44,7 @@ jobs:
     name: Deploy Qa
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && (github.ref == '^refs/heads/qa_.*' || github.ref == 'refs/heads/qa') }}
+    # if: ${{ github.event_name == 'push' && (github.ref == '^refs/heads/qa_.*' || github.ref == 'refs/heads/qa') }}
     steps:
       - name: Deploy Production
         uses: actions/checkout@v3
