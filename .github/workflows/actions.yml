@@ -39,7 +39,7 @@ jobs:
           fi
   deploy:
     needs: build
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' || github.ref == 'refs/heads/qa_*' || github.ref == 'refs/heads/qa' }}
+    # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' || github.ref == 'refs/heads/qa_*' || github.ref == 'refs/heads/qa' }}
     runs-on: ubuntu-latest
 
     steps:
