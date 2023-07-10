@@ -37,6 +37,9 @@ jobs:
           if [[ "${{ github.ref }}" =~ ^refs/heads/qa_/ ]]; then
             echo "Faça deploy para QA"
           fi
+          if [[ github.ref == 'refs/heads/qa_batata' ]]; then
+            echo "Teste Batata"
+          fi
   deploy_qa:
     name: Deploy Qa
     needs: build
