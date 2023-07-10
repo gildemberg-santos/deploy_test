@@ -28,18 +28,10 @@ jobs:
         uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
         with:
           bundler-cache: true
-      - name: Setup database
+      - name: Structure load
         run: bin/rails db:structure:load
-      - name: Run tests
+      - name: Rspec tests
         run: bin/bundle exec rspec
-      - name: Qa
-        run: |
-          if [[ "${{ github.ref }}" =~ ^refs/heads/qa_ ]]; then
-            echo "Faça deploy para QA"
-          fi
-          if [[ "${{ github.ref }}" == 'refs/heads/qa_batata' ]]; then
-            echo "Teste Batata"
-          fi
   deploy:
     name: Deploy
     needs: build
