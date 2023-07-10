@@ -40,15 +40,14 @@ jobs:
           if [[ "${{ github.ref }}" == 'refs/heads/qa_batata' ]]; then
             echo "Teste Batata"
           fi
-  deploy_qa:
-    name: Deploy Qa
+  deploy:
+    name: Deploy
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.ref == '^refs/heads/qa_.*' || github.ref == 'refs/heads/qa' }}
     steps:
-      - name: Deploy Production
+      - name: Verify Environment
         uses: actions/checkout@v3
-      - name: Start Deploy
+      - name: Qa
         run: |
           if [[ "${{ github.ref }}" == "refs/heads/qa" ]]; then
             echo "Faça deploy para QA"
@@ -56,20 +55,14 @@ jobs:
           if [[ "${{ github.ref }}" =~ ^refs/heads/qa_ ]]; then
             echo "Faça deploy para QA de uma branch específica"
           fi
-  deploy_production:
-    name: Deploy Production
-    needs: build
-    runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' }}
-    steps:
-      - name: Deploy Production
-        uses: actions/checkout@v3
-      - name: Start Deploy
+      - name: Production
         run: |
-          echo "Faça deploy para produção"
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "Faça deploy para produção"
+          fi
   notifier_slack:
     name: Notifier Slack
-    needs: deploy_qa
+    needs: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Send
