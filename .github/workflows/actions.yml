@@ -43,8 +43,8 @@ jobs:
   deploy_qa:
     name: Deploy Qa
     needs: build
-    if: ${{ github.event_name == 'push' && (github.ref == '^refs/heads/qa_.*' || github.ref == 'refs/heads/qa') }}
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && (github.ref == '^refs/heads/qa_.*' || github.ref == 'refs/heads/qa') }}
     steps:
       - name: Deploy Production
         uses: actions/checkout@v3
@@ -59,18 +59,17 @@ jobs:
   deploy_production:
     name: Deploy Production
     needs: build
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     steps:
       - name: Deploy Production
         uses: actions/checkout@v3
       - name: Start Deploy
         run: |
           echo "Faça deploy para produção"
-  notifier:
+  notifier_slack:
     name: Notifier Slack
-    needs:
-      - build
+    needs: deploy_qa
     runs-on: ubuntu-latest
     steps:
       - name: Send
