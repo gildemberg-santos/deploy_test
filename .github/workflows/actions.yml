@@ -28,23 +28,32 @@ jobs:
         uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
         with:
           bundler-cache: true
-      - name: Set up database structure
+      - name: Setup database
         run: bin/rails db:structure:load
       - name: Run tests
         run: bin/bundle exec rspec
-      - name: Identificar Branch
+      - name: Qa
         run: |
           if [[ "${{ github.ref }}" =~ ^refs/heads/qa_/ ]]; then
             echo "Faça deploy para QA"
           fi
   deploy:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     needs: build
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' || github.ref == 'refs/heads/qa_*' || github.ref == 'refs/heads/qa' }}
     runs-on: ubuntu-latest
 
     steps:
       - name: Deploy
         uses: actions/checkout@v3
-      - name: Deploy to Cloud 66
+
+      - name: Deploy Qa
         run: |
-          curl https://hooks.cloud66.com/stacks/redeploy/c8f28cf7b663db0d3ad0b2ef77964ba7/2fd986ac3fbaa8b97df556e15aec69d4
+          if [[ "${{ github.ref }}" =~ ^refs/heads/qa_/ || "${{ github.ref }}" == "refs/heads/qa" ]]; then
+            echo "Faça deploy para QA"
+          fi
+
+      - name: Deploy Production
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "Faça deploy para produção"
+          fi
