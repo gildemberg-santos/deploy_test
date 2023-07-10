@@ -29,7 +29,9 @@ jobs:
         with:
           bundler-cache: true
       - name: Structure load
-        run: bin/rails db:structure:load
+        run: |
+          bin/rails db:structure:load
+          bin/rails db:structure:load RAILS_ENV=test
       - name: Rspec tests
         run: bin/bundle exec rspec
       - name: Rubocop
