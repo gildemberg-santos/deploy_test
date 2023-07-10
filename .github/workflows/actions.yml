@@ -34,7 +34,7 @@ jobs:
         run: bin/bundle exec rspec
       - name: Qa
         run: |
-          if [[ "${{ github.ref }}" =~ ^refs/heads/qa_.* ]]; then
+          if [[ "${{ github.ref }}" =~ ^refs/heads/qa_ ]]; then
             echo "Faça deploy para QA"
           fi
           if [[ "${{ github.ref }}" == 'refs/heads/qa_batata' ]]; then
@@ -43,7 +43,7 @@ jobs:
   deploy_qa:
     name: Deploy Qa
     needs: build
-    if: ${{ github.ref =~ /^refs/heads/qa_.*/ || github.ref == 'refs/heads/qa' }}
+    if: ${{ github.ref == '^refs/heads/qa_.*/' || github.ref == 'refs/heads/qa' }}
     runs-on: ubuntu-latest
     steps:
       - name: Deploy Production
@@ -53,7 +53,7 @@ jobs:
           if [[ "${{ github.ref }}" == "refs/heads/qa" ]]; then
             echo "Faça deploy para QA"
           fi
-          if [[ "${{ github.ref }}" =~ ^refs/heads/qa_/ ]]; then
+          if [[ "${{ github.ref }}" =~ ^refs/heads/qa_ ]]; then
             echo "Faça deploy para QA de uma branch específica"
           fi
   deploy_production:
