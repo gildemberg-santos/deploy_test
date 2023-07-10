@@ -57,10 +57,11 @@ group :test do
   gem 'brakeman'
   gem 'bundler'
   gem 'bundler-audit'
-  gem 'rspec'
+end
+
+group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop-rails'
 end
-
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
