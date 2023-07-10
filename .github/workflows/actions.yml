@@ -1,0 +1,59 @@
+name: "CI"
+on:
+  push:
+    branches: [ "*" ]
+jobs:
+  build:
+    name: "Build - ${{ github.event_name }}"
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+          POSTGRES_PORT: 5432
+          POSTGRES_DB: rails_test
+          POSTGRES_TIMEOUT: 5000
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
+        with:
+          bundler-cache: true
+      - name: Set up database structure
+        run: bin/rails db:structure:load
+      - name: Run tests
+        run: bin/bundle exec rspec
+      - name: Identificar Branch
+        run: |
+          if [[ "${{ github.ref }}" =~ ^refs/heads/qa_/ ]]; then
+            echo "Esta é uma branch de qa"
+          else
+            echo "Esta não é uma branch de qa"
+          fi
+      - name: Identificar PR aberto
+        run: |
+          if [ "${{ github.event.pull_request.state }}" == "open" ]; then
+            echo "A PR está aberta."
+          else
+            echo "A PR não está aberta."
+          fi
+  deploy:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy
+        uses: actions/checkout@v3
+      - name: Deploy to Cloud 66
+        run: |
+          curl https://hooks.cloud66.com/stacks/redeploy/c8f28cf7b663db0d3ad0b2ef77964ba7/2fd986ac3fbaa8b97df556e15aec69d4
