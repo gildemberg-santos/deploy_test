@@ -66,4 +66,4 @@ jobs:
         env:
           SLACK_INCOMING_WEBHOOK: ${{ secrets.SLACK_INCOMING_WEBHOOK }}
           SLACK_MESSAGE: Deploy ${{ github.actor }} -> ${{ github.sha }}
-          SLACK_TITLE: "Deploy realizado com ${{ needs.deploy.outputs.status }}"
+          SLACK_TITLE: "Deploy realizado com ${{ needs.deploy }}"
