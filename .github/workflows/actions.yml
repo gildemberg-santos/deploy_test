@@ -31,7 +31,7 @@ jobs:
       - name: Migration
         run: bin/rails db:migrate
       - name: Rspec tests
-        run: bin/bundle exec rspec
+        run: bin/rake
       - name: Rubocop
         run: bin/bundle exec rubocop --require rubocop-rails
   deploy:
