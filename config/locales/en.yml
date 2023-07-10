@@ -31,3 +31,25 @@
 
 en:
   hello: "Hello world"
+  post:
+    controller:
+      create:
+        success: "Post was successfully created."
+        failure: "Post was not created."
+      update:
+        success: "Post was successfully updated."
+        failure: "Post was not updated."
+      destroy:
+        success: "Post was successfully destroyed."
+        failure: "Post was not destroyed."
+  user:
+    controller:
+      create:
+        success: "User was successfully created."
+        failure: "User was not created."
+      update:
+        success: "User was successfully updated."
+        failure: "User was not updated."
+      destroy:
+        success: "User was successfully destroyed."
+        failure: "User was not destroyed."

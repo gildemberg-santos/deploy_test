@@ -32,6 +32,8 @@ jobs:
         run: bin/rails db:structure:load
       - name: Rspec tests
         run: bin/bundle exec rspec
+      - name: Rubocop
+        run: bin/bundle exec rubocop --require rubocop-rails
   deploy:
     needs: build
     name: Deploy
@@ -52,8 +54,8 @@ jobs:
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "Faça deploy para produção"
           fi
-      - name: Forçar falha
-        run: exit 1
+      # - name: Forçar falha
+      #   run: exit 1
   slackNotification:
       if: ${{ always() }}
       needs: [build, deploy]
