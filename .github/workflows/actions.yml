@@ -35,16 +35,7 @@ jobs:
       - name: Identificar Branch
         run: |
           if [[ "${{ github.ref }}" =~ ^refs/heads/qa_/ ]]; then
-            echo "Esta é uma branch de qa"
-          else
-            echo "Esta não é uma branch de qa"
-          fi
-      - name: Identificar PR aberto
-        run: |
-          if [ "${{ github.event.pull_request.state }}" == "open" ]; then
-            echo "A PR está aberta."
-          else
-            echo "A PR não está aberta."
+            echo "Faça deploy para QA"
           fi
   deploy:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
