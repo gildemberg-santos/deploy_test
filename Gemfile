@@ -62,6 +62,7 @@ group :test do
   gem 'bundler'
   gem 'bundler-audit'
   gem 'chromedriver-helper'
+  gem 'rspec'
   gem 'rspec-rails'
   gem 'rubocop-rails'
 end
