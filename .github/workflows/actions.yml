@@ -53,14 +53,15 @@ jobs:
             echo "Faça deploy para produção"
           fi
   slackNotification:
+      if: ${{ always() }}
       needs: deploy
-      name: Slack Notification Demo
+      name: Slack Notification
       runs-on: ubuntu-latest
       steps:
       - uses: actions/checkout@master
-      - name: Slack Notification Demo
+      - name: Slack Notification
         uses: bryannice/gitactions-slack-notification@2.0.0
         env:
           SLACK_INCOMING_WEBHOOK: ${{ secrets.SLACK_INCOMING_WEBHOOK }}
-          SLACK_MESSAGE: 'Deploy ${{ github.actor }} -> ${{ github.sha }}'
-          SLACK_TITLE: 'Deploy realizado com sucesso! :rocket:'
+          SLACK_MESSAGE: Deploy ${{ github.actor }} -> ${{ github.sha }}
+          SLACK_TITLE: "Deploy realizado com '${{ job.status }}' :rocket:"
