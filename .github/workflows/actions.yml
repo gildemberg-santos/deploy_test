@@ -52,6 +52,8 @@ jobs:
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "Faça deploy para produção"
           fi
+      - name: Forçar falha
+        run: exit 1
   slackNotification:
       if: ${{ always() }}
       needs: deploy
