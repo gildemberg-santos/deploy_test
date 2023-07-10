@@ -65,7 +65,7 @@ jobs:
         uses: bryannice/gitactions-slack-notification@2.0.0
         env:
           SLACK_INCOMING_WEBHOOK: ${{ secrets.SLACK_INCOMING_WEBHOOK }}
-          SLACK_TITLE: "Deploy realizado com ${{ needs.deploy.result }}"
+          SLACK_TITLE: "Deploy realizado com ${{ job.status }}"
           SLACK_MESSAGE: |
             Actor: ${{ github.actor }}
             Branch: ${{ github.ref }}
