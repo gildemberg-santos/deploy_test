@@ -43,7 +43,7 @@ jobs:
   deploy_qa:
     name: Deploy Qa
     needs: build
-    if: ${{ github.ref == '^refs/heads/qa_.*/' || github.ref == 'refs/heads/qa' }}
+    if: ${{ github.event_name == 'push' && (github.ref == '^refs/heads/qa_.*/' || github.ref == 'refs/heads/qa_batata') }}
     runs-on: ubuntu-latest
     steps:
       - name: Deploy Production
