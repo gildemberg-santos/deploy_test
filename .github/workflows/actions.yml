@@ -69,7 +69,9 @@ jobs:
           echo "Faça deploy para produção"
   notifier:
     name: Notifier Slack
-    needs: [deploy_qa, deploy_production]
+    if: ${{ github.needs.build.result == 'success' }}
+    needs:
+      - build
     runs-on: ubuntu-latest
     steps:
       - name: Send
