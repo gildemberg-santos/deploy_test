@@ -43,7 +43,7 @@ jobs:
     needs: test
     name: Deploy QA
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/qa' || github.ref == '^refs/heads/qa_') }}
+    if: ${{ (github.event_name == 'push' && (github.ref == 'refs/heads/qa' || github.ref == '^refs/heads/qa_')) || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
     steps:
       - name: Verify Environment
         uses: actions/checkout@v3
