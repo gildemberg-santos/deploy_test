@@ -53,9 +53,9 @@ jobs:
         run: echo "Rode as data migrations"
       - name: Deploy Qa
         run: |
-          echo "Faça deploy para QA ${{ env.IMAGE_DOCKFILE_APPLICATION }}"
+          echo "Faça deploy para QA ${{ vars.IMAGE_DOCKFILE_APPLICATION }}"
           # gcloud beta run jobs create neurolead-migration-job \
-          # --image ${{ env.IMAGE_DOCKFILE_APPLICATION }} \
+          # --image ${{ vars.IMAGE_DOCKFILE_APPLICATION }} \
           # --command "bundle exec rake db:migrate" \
           # --execute-now --wait
   deploy_production:
