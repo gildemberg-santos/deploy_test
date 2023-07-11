@@ -65,7 +65,7 @@ jobs:
         run: echo "Rode as migrations"
   slackNotification:
       if: ${{ always() }}
-      needs: [build, deploy_qa, deploy_production]
+      needs: [test, deploy_qa, deploy_production]
       name: Slack Notification
       runs-on: ubuntu-latest
       steps:
