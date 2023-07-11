@@ -2,9 +2,14 @@ name: "CI/CD with GitHub Actions"
 on:
   push:
     branches: [ "*" ]
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
 jobs:
-  build:
-    name: Build
+  test:
+    name: Test
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -28,37 +33,39 @@ jobs:
         uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
         with:
           bundler-cache: true
-      - name: Migration
-        run: bin/rails db:migrate
-      - name: Rspec tests
-        run: bin/rake
       - name: Rubocop
         run: bin/bundle exec rubocop --require rubocop-rails
-  deploy:
-    needs: build
-    name: Deploy
+      - name: Migration
+        run: bin/rails db:create db:migrate
+      - name: Rspec tests
+        run: bin/rake
+  deploy_qa:
+    needs: test
+    name: Deploy QA
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/qa' || github.ref == '^refs/heads/qa_') }}
     steps:
       - name: Verify Environment
         uses: actions/checkout@v3
-      - name: Qa
-        run: |
-          if [[ "${{ github.ref }}" == "refs/heads/qa" ]]; then
-            echo "Faça deploy para QA"
-          fi
-          if [[ "${{ github.ref }}" =~ ^refs/heads/qa_ ]]; then
-            echo "Faça deploy para QA de uma branch específica"
-          fi
-      - name: Production
-        run: |
-          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            echo "Faça deploy para produção"
-          fi
-      # - name: Forçar falha
-      #   run: exit 1
+      - name: Deploy Qa
+        run: echo "Faça deploy para QA"
+      - name: Migrate QA
+        run: echo "Rode as migrations"
+  deploy_production:
+    needs: test
+    name: Deploy Production
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    steps:
+      - name: Verify Environment
+        uses: actions/checkout@v3
+      - name: Deploy Production
+        run: echo "Faça deploy para produção"
+      - name: Migrate Production
+        run: echo "Rode as migrations"
   slackNotification:
       if: ${{ always() }}
-      needs: [build, deploy]
+      needs: [test, deploy_qa, deploy_production]
       name: Slack Notification
       runs-on: ubuntu-latest
       steps:
