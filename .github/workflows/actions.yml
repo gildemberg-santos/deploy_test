@@ -47,10 +47,12 @@ jobs:
     steps:
       - name: Verify Environment
         uses: actions/checkout@v3
-      - name: Deploy Qa
-        run: echo "Faça deploy para QA"
       - name: Migrate QA
         run: echo "Rode as migrations"
+      - name: Data Migrate QA
+        run: echo "Rode as data migrations"
+      - name: Deploy Qa
+        run: echo "Faça deploy para QA"
   deploy_production:
     needs: test
     name: Deploy Production
@@ -59,10 +61,12 @@ jobs:
     steps:
       - name: Verify Environment
         uses: actions/checkout@v3
-      - name: Deploy Production
-        run: echo "Faça deploy para produção"
       - name: Migrate Production
         run: echo "Rode as migrations"
+      - name: Data Migrate Production
+        run: echo "Rode as data migrations"
+      - name: Deploy Production
+        run: echo "Faça deploy para produção"
   slackNotification:
       if: ${{ always() }}
       needs: [test, deploy_qa, deploy_production]
