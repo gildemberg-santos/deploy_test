@@ -41,16 +41,18 @@ jobs:
         run: bin/rake
   deploy_qa:
     needs: test
-    name: Deploy QA
+    name: Deploy Qa
     runs-on: ubuntu-latest
     if: ${{ (github.event_name == 'push' && (github.ref == 'refs/heads/qa' || github.ref == '^refs/heads/qa_')) || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
     steps:
       - name: Verify Environment
         uses: actions/checkout@v3
-      - name: Deploy Qa
-        run: echo "Faça deploy para QA"
       - name: Migrate QA
         run: echo "Rode as migrations"
+      - name: Data Migrate QA
+        run: echo "Rode as data migrations"
+      - name: Deploy Qa
+        run: echo "Faça deploy para QA"
   deploy_production:
     needs: test
     name: Deploy Production
@@ -59,10 +61,12 @@ jobs:
     steps:
       - name: Verify Environment
         uses: actions/checkout@v3
-      - name: Deploy Production
-        run: echo "Faça deploy para produção"
       - name: Migrate Production
         run: echo "Rode as migrations"
+      - name: Data Migrate Production
+        run: echo "Rode as data migrations"
+      - name: Deploy Production
+        run: echo "Faça deploy para produção"
   slackNotification:
       if: ${{ always() }}
       needs: [test, deploy_qa, deploy_production]
@@ -80,6 +84,7 @@ jobs:
             Branch: ${{ github.ref }}
             Commit: ${{ github.sha }}
             Messagem de Commit: ${{ github.event.head_commit.message }}
-            Build: ${{ needs.build.result }}
-            Deploy: ${{ needs.deploy.result }}
+            Test: ${{ needs.test.result }}
+            Deploy Qa: ${{ needs.deploy_qa.result }}
+            Deploy Production: ${{ needs.deploy_production.result }}
 
