@@ -22,6 +22,7 @@ jobs:
           echo "env: ${{ env.CURRENT_ENV }}"
           echo "github: ${{ github.CURRENT_ENV }}"
           echo "github env: ${{ env.GITHUB_ENV }}"
+          echo "github rules: ${{ github.rules }}"
   # test:
   #   # verificar se o ambiente de desenvolvimento
   #   if: ${{ github.event_name == 'pull_request' && (github.event.action != 'closed' || github.event.pull_request.merged == true) }}
