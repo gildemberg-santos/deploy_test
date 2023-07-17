@@ -2,7 +2,7 @@ name: "CI/CD with Qa"
 on:
   push:
     branches:
-      - qa
+      - main
   pull_request:
     types:
       - opened
