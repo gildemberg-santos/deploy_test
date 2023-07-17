@@ -1,14 +1,7 @@
 name: "CI/CD with Qa"
 on:
-  # push:
-  #   branches:
-  #     - qa
-  pull_request:
-    branches:
-      - qa
-    types:
-      - opened
-      - synchronize
+  push:
+    branches: [ qa ]
 jobs:
   test:
     name: Test
