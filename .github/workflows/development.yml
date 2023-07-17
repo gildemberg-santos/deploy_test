@@ -1,4 +1,4 @@
-name: "CI/CD with Qa"
+name: "CI/CD with Development"
 on:
   pull_request:
     types:
