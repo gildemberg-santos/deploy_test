@@ -4,7 +4,7 @@ on:
     types:
       - opened
       - synchronize
-      # - closed
+      - closed
 jobs:
   test:
     name: Test
@@ -35,7 +35,7 @@ jobs:
       - name: Rspec tests
         run: bin/rake
   deploy:
-    if: ${{ github.event.pull_request.merged == true }}
+    if: ${{ github.event.action == 'closed' }}
     needs: test
     name: Deploy Qa
     runs-on: ubuntu-latest
