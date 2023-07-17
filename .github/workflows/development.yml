@@ -1,64 +1,81 @@
-name: "CI/CD with GitHub Actions"
-
-on: [push]
-# on:
-#   push:
-#     branches: [ "*" ]
-  # pull_request:
-  #   types:
-  #     - opened
-  #     - synchronize
-  #     - closed
+name: "CI/CD with Development"
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - closed
 jobs:
-  check_environment:
+  test:
+    name: Test
     runs-on: ubuntu-latest
     environment: development
+    services:
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+          POSTGRES_PORT: 5432
+          POSTGRES_DB: rails_test
+          POSTGRES_TIMEOUT: 5000
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Imprimir o ambiente
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
+        with:
+          bundler-cache: true
+      - name: Rubocop
+        run: bin/bundle exec rubocop --require rubocop-rails
+      - name: Migration
+        run: bin/rails db:create db:migrate
+      - name: Rspec tests
+        run: bin/rake
+  deploy:
+    if: ${{ github.event.pull_request.merged == true }}
+    needs: test
+    name: Deploy Qa
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - name: Verify Environment
+        uses: actions/checkout@v3
+      - name: Migrate QA
+        run: echo "Rode as migrations"
+      - name: Data Migrate QA
+        run: echo "Rode as data migrations"
+      - name: Deploy Qa
         run: |
-          echo "vars: ${{ vars.CURRENT_ENV }}"
-          echo "secrets: ${{ secrets.CURRENT_ENV }}"
-          echo "env: ${{ env.CURRENT_ENV }}"
-          echo "github: ${{ github.CURRENT_ENV }}"
-          echo "github env: ${{ env.GITHUB_ENV }}"
-          echo "github rules: ${{ github }}"
-  # test:
-  #   # verificar se o ambiente de desenvolvimento
-  #   if: ${{ github.event_name == 'pull_request' && (github.event.action != 'closed' || github.event.pull_request.merged == true) }}
-  #   name: Test
+          echo "Faça deploy para QA"
+          # gcloud beta run jobs create neurolead-migration-job \
+          # --image ${{ vars.IMAGE_DOCKFILE_APPLICATION }} \
+          # --command "bundle exec rake db:migrate" \
+          # --execute-now --wait
+  # deploy_production:
+  #   needs: test
+  #   name: Deploy Production
   #   runs-on: ubuntu-latest
-  #   services:
-  #     postgres:
-  #       image: postgres:11-alpine
-  #       ports:
-  #         - "5432:5432"
-  #       env:
-  #         POSTGRES_HOST: localhost
-  #         POSTGRES_USER: rails
-  #         POSTGRES_PASSWORD: password
-  #         POSTGRES_PORT: 5432
-  #         POSTGRES_DB: rails_test
-  #         POSTGRES_TIMEOUT: 5000
+  #   environment: qa
+  #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
   #   steps:
-  #     - name: Checkout code
+  #     - name: Verify Environment
   #       uses: actions/checkout@v3
-  #     - name: Install Ruby and gems
-  #       uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
-  #       with:
-  #         bundler-cache: true
-  #     - name: Rubocop
-  #       run: bin/bundle exec rubocop --require rubocop-rails
-  #     - name: Migration
-  #       run: bin/rails db:create db:migrate
-  #     - name: Rspec tests
-  #       run: bin/rake
+  #     - name: Migrate Production
+  #       run: echo "Rode as migrations"
+  #     - name: Data Migrate Production
+  #       run: echo "Rode as data migrations"
+  #     - name: Deploy Production
+  #       run: echo "Faça deploy para produção"
   # slackNotification:
   #     if: ${{ always() }}
-  #     needs: [test]
+  #     needs: [test, deploy_qa, deploy_production]
   #     name: Slack Notification
   #     runs-on: ubuntu-latest
+  #     environment: qa
   #     steps:
   #     - uses: actions/checkout@master
   #     - name: Slack Notification
