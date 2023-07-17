@@ -36,7 +36,7 @@ jobs:
       - name: Rspec tests
         run: bin/rake
   deploy:
-    if: ${{ github.event.pull_request.merged == 'true }}
+    if: ${{ github.event.pull_request.merged == true }}
     needs: test
     name: Deploy Qa
     runs-on: ubuntu-latest
