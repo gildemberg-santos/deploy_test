@@ -1,4 +1,4 @@
-name: "CI/CD with GitHub Actions"
+name: "CI/CD with Development"
 
 on: [push]
 
