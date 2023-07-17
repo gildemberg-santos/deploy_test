@@ -1,10 +1,9 @@
-name: "CI/CD with Development"
+name: "CI/CD with Desenvolvimento"
 on:
   pull_request:
     types:
       - opened
       - synchronize
-      - closed
 jobs:
   test:
     name: Test
@@ -34,59 +33,3 @@ jobs:
         run: bin/rails db:create db:migrate
       - name: Rspec tests
         run: bin/rake
-  deploy:
-    if: ${{ github.event.action == 'closed' }}
-    needs: test
-    name: Deploy Qa
-    runs-on: ubuntu-latest
-    steps:
-      - name: Verify Environment
-        uses: actions/checkout@v3
-      - name: Migrate QA
-        run: echo "Rode as migrations"
-      - name: Data Migrate QA
-        run: echo "Rode as data migrations"
-      - name: Deploy Qa
-        run: |
-          echo "Faça deploy para QA"
-          # gcloud beta run jobs create neurolead-migration-job \
-          # --image ${{ vars.IMAGE_DOCKFILE_APPLICATION }} \
-          # --command "bundle exec rake db:migrate" \
-          # --execute-now --wait
-  # deploy_production:
-  #   needs: test
-  #   name: Deploy Production
-  #   runs-on: ubuntu-latest
-  #   environment: qa
-  #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-  #   steps:
-  #     - name: Verify Environment
-  #       uses: actions/checkout@v3
-  #     - name: Migrate Production
-  #       run: echo "Rode as migrations"
-  #     - name: Data Migrate Production
-  #       run: echo "Rode as data migrations"
-  #     - name: Deploy Production
-  #       run: echo "Faça deploy para produção"
-  # slackNotification:
-  #     if: ${{ always() }}
-  #     needs: [test, deploy_qa, deploy_production]
-  #     name: Slack Notification
-  #     runs-on: ubuntu-latest
-  #     environment: qa
-  #     steps:
-  #     - uses: actions/checkout@master
-  #     - name: Slack Notification
-  #       uses: bryannice/gitactions-slack-notification@2.0.0
-  #       env:
-  #         SLACK_INCOMING_WEBHOOK: ${{ secrets.SLACK_INCOMING_WEBHOOK }}
-  #         SLACK_TITLE: "Resultado do deploy"
-  #         SLACK_MESSAGE: |
-  #           Autor: ${{ github.actor }}
-  #           Branch: ${{ github.ref }}
-  #           Commit: ${{ github.sha }}
-  #           Messagem de Commit: ${{ github.event.head_commit.message }}
-  #           Test: ${{ needs.test.result }}
-  #           Deploy Qa: ${{ needs.deploy_qa.result }}
-  #           Deploy Production: ${{ needs.deploy_production.result }}
-
