@@ -12,14 +12,12 @@ on: [push]
 jobs:
   check_environment:
     runs-on: ubuntu-latest
-    environment: development
+    # environment: development
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Imprimir o ambiente
         run: |
-          echo "vars: ${{ vars.CURRENT_ENV }}"
-          echo "secrets: ${{ secrets.CURRENT_ENV }}"
           if [ ${{ vars.CURRENT_ENV }} == "development" ]; then
             echo "Ambiente de desenvolvimento"
           elif [ ${{ vars.CURRENT_ENV }} == "qa" ]; then
