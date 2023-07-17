@@ -12,9 +12,8 @@ on: [push]
 jobs:
   check_environment:
     runs-on: ubuntu-latest
+    environment: development
     steps:
-      - name: Check Environment
-        uses: actions/checkout@v3
       - name: Imprimir o ambiente
         run: |
           echo "vars: ${{ vars.CURRENT_ENV }}"
