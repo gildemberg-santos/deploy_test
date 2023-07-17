@@ -6,10 +6,7 @@ on:
       - synchronize
 jobs:
   test:
-    if: |
-      github.ref == '^refs/heads/hotfix/' || \
-      github.ref == '^refs/heads/fix/' || \
-      github.ref == '^refs/heads/feature/' || \
+    if: github.ref == '^refs/heads/hotfix/' || github.ref == '^refs/heads/fix/' || github.ref == '^refs/heads/feature/' || 
     name: Test
     runs-on: ubuntu-latest
     services:
