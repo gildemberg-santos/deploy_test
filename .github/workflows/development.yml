@@ -9,7 +9,6 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    environment: development
     services:
       postgres:
         image: postgres:11-alpine
@@ -40,7 +39,6 @@ jobs:
     needs: test
     name: Deploy Qa
     runs-on: ubuntu-latest
-    environment: development
     steps:
       - name: Verify Environment
         uses: actions/checkout@v3
