@@ -25,7 +25,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Teste
-        run: echo "${{ github.ref }}"
+        run: |
+          echo "${{ github.ref }}"
+          # branches de origem
+          # echo "${{ github.event.pull_request.head.ref }}"
       # - name: Install Ruby and gems
       #   uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
       #   with:
