@@ -6,9 +6,9 @@ on:
       - synchronize
 jobs:
   test:
-    if: ${{ github.event.pull_request.head.ref == '^feature/' }}
     name: Test
     runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.head.ref == '^feature/' }}
     services:
       postgres:
         image: postgres:11-alpine
