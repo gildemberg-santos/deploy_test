@@ -12,10 +12,10 @@ on: [push]
 jobs:
   check_environment:
     runs-on: ubuntu-latest
-    # environment: development
+    environment: development
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      # - name: Checkout code
+      #   uses: actions/checkout@v3
       - name: Imprimir o ambiente
         run: |
           if [ ${{ vars.CURRENT_ENV }} == "development" ]; then
