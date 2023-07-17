@@ -2,11 +2,10 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV['POSTGRES_USER'] { rails } %>
-  password: <%= ENV['POSTGRES_PASSWORD'] { password } %>
-  port: <%= ENV['POSTGRES_PORT'] { 5432 } %>
-  host: <%= ENV['POSTGRES_HOST'] { localhost } %>
-  timeout: <%= ENV['POSTGRES_TIMEOUT'] { 5000 } %>
+  username: rails
+  password: password
+  host: localhost
+  timeout: 5000
 
 development:
   <<: *default
@@ -20,6 +19,16 @@ staging:
   <<: *default
   database: realty_development
 
+qa:
+  <<: *default
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: <%= ENV['POSTGRES_HOST'] %>
+  database: <%= ENV['POSTGRES_DB'] %>
+
 production:
   <<: *default
-  database: <%= ENV['POSTGRES_DB'] { realty_production } %>
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: <%= ENV['POSTGRES_HOST'] %>
+  database: <%= ENV['POSTGRES_DB'] %>
