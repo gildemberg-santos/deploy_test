@@ -3,7 +3,7 @@ on:
   # push:
   #   branches: [ "qa" ]
   pull_request:
-    branches: [ "qa" ]
+    # branches: [ "qa" ]
     types:
       - opened
       - synchronize
