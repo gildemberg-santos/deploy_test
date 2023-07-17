@@ -1,9 +1,6 @@
 name: "CI/CD with Development"
 on:
   pull_request:
-    branches:
-      - feature/*
-      - LEAD-*
     types:
       - opened
       - synchronize
