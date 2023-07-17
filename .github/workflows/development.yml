@@ -13,11 +13,15 @@ jobs:
   check_environment:
     runs-on: ubuntu-latest
     steps:
+      - name: Check Environment
+        uses: actions/checkout@v3
       - name: Imprimir o ambiente
         run: |
           echo "vars: ${{ vars.CURRENT_ENV }}"
           echo "secrets: ${{ secrets.CURRENT_ENV }}"
           echo "env: ${{ env.CURRENT_ENV }}"
+          echo "github: ${{ github.CURRENT_ENV }}"
+          echo "github env: ${{ env.GITHUB_ENV }}"
   # test:
   #   # verificar se o ambiente de desenvolvimento
   #   if: ${{ github.event_name == 'pull_request' && (github.event.action != 'closed' || github.event.pull_request.merged == true) }}
