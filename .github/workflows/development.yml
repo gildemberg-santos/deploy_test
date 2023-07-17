@@ -35,8 +35,6 @@ jobs:
         run: bin/rails db:create db:migrate
       - name: Rspec tests
         run: bin/rake
-      - name: Falha
-        run: exit 1
   deploy:
     if: ${{ github.event.pull_request.merged == true }}
     needs: test
