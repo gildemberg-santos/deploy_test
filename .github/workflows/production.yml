@@ -36,25 +36,6 @@
 #         run: bin/rails db:create db:migrate
 #       - name: Rspec tests
 #         run: bin/rake
-#   deploy_qa:
-#     needs: test
-#     name: Deploy Qa
-#     runs-on: ubuntu-latest
-#     if: ${{ (github.event_name == 'push' && (github.ref == 'refs/heads/qa' || github.ref == '^refs/heads/qa_')) || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
-#     steps:
-#       - name: Verify Environment
-#         uses: actions/checkout@v3
-#       - name: Migrate QA
-#         run: echo "Rode as migrations"
-#       - name: Data Migrate QA
-#         run: echo "Rode as data migrations"
-#       - name: Deploy Qa
-#         run: |
-#           echo "Faça deploy para QA"
-#           # gcloud beta run jobs create neurolead-migration-job \
-#           # --image ${{ vars.IMAGE_DOCKFILE_APPLICATION }} \
-#           # --command "bundle exec rake db:migrate" \
-#           # --execute-now --wait
 #   deploy_production:
 #     needs: test
 #     name: Deploy Production
