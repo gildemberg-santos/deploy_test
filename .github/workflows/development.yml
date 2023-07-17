@@ -6,7 +6,7 @@ on:
       - synchronize
 jobs:
   test:
-    if: ${{ github.event.pull_request.head.ref == 'feature/deploy' }}
+    if: ${{ github.event.pull_request.head.ref =~ '^feature/' }}
     name: Test
     runs-on: ubuntu-latest
     services:
