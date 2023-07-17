@@ -1,6 +1,7 @@
 name: "CI/CD with Development"
 on:
   pull_request:
+    branches: [ 'feature/*' ]
     types:
       - opened
       - synchronize
@@ -8,7 +9,6 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.head.ref == '^feature/' }}
     services:
       postgres:
         image: postgres:11-alpine
