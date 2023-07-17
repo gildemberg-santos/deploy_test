@@ -20,10 +20,15 @@ jobs:
         run: |
           echo "vars: ${{ vars.CURRENT_ENV }}"
           echo "secrets: ${{ secrets.CURRENT_ENV }}"
-          echo "env: ${{ env.CURRENT_ENV }}"
-          echo "github: ${{ github.CURRENT_ENV }}"
-          echo "github env: ${{ env.GITHUB_ENV }}"
-          echo "github rules: ${{ github }}"
+          if [ ${{ vars.CURRENT_ENV }} == "development" ]; then
+            echo "Ambiente de desenvolvimento"
+          elif [ ${{ vars.CURRENT_ENV }} == "qa" ]; then
+            echo "Ambiente de QA"
+          elif [ ${{ vars.CURRENT_ENV }} == "production" ]; then
+            echo "Ambiente de produção"
+          else
+            echo "Ambiente não encontrado"
+          fi
   # test:
   #   # verificar se o ambiente de desenvolvimento
   #   if: ${{ github.event_name == 'pull_request' && (github.event.action != 'closed' || github.event.pull_request.merged == true) }}
