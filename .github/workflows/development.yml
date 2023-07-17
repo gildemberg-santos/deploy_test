@@ -1,10 +1,13 @@
 name: "CI/CD with Development"
+
 on:
   pull_request:
-    branches: [ 'feature/*' ]
     types:
       - opened
       - synchronize
+    branches:
+      - 'feature/*'
+      - 'fix/*'
 jobs:
   test:
     name: Test
