@@ -21,6 +21,7 @@ staging:
 
 qa:
   <<: *default
+  encoding: <%= ENV['POSTGRES_ENCODING'] %>
   username: <%= ENV['POSTGRES_USER'] %>
   password: <%= ENV['POSTGRES_PASSWORD'] %>
   host: <%= ENV['POSTGRES_HOST'] %>
@@ -28,6 +29,7 @@ qa:
 
 production:
   <<: *default
+  encoding: <%= ENV['POSTGRES_ENCODING'] %>
   username: <%= ENV['POSTGRES_USER'] %>
   password: <%= ENV['POSTGRES_PASSWORD'] %>
   host: <%= ENV['POSTGRES_HOST'] %>
