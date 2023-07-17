@@ -15,9 +15,9 @@ jobs:
     steps:
       - name: Imprimir o ambiente
         run: |
-          echo "O ambiente atual é: ${{ vars.CURRENT_ENV }}"
-          echo "O ambiente atual é: ${{ secrets.CURRENT_ENV }}"
-          echo "O ambiente atual é: ${{ env.CURRENT_ENV }}"
+          O ambiente atual é: ${{ vars.CURRENT_ENV }}
+          O ambiente atual é: ${{ secrets.CURRENT_ENV }}
+          O ambiente atual é: ${{ env.CURRENT_ENV }}
   # test:
   #   # verificar se o ambiente de desenvolvimento
   #   if: ${{ github.event_name == 'pull_request' && (github.event.action != 'closed' || github.event.pull_request.merged == true) }}
