@@ -1,13 +1,13 @@
 name: "CI/CD with Development"
 
 on:
+  push:
+    branches: [ feature/* ]
   pull_request:
+    branches: [ feature/* ]
     types:
       - opened
       - synchronize
-    branches:
-      - 'feature/*'
-      - 'fix/*'
 jobs:
   test:
     name: Test
@@ -24,19 +24,20 @@ jobs:
           POSTGRES_PORT: 5432
           POSTGRES_DB: rails_test
           POSTGRES_TIMEOUT: 5000
+    if: startsWith(github.head_ref, 'refs/heads/feature/')
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Teste
         run: |
           echo "${{ github.event.pull_request.head.ref }}"
-      # - name: Install Ruby and gems
-      #   uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
-      #   with:
-      #     bundler-cache: true
-      # - name: Rubocop
-      #   run: bin/bundle exec rubocop --require rubocop-rails
-      # - name: Migration
-      #   run: bin/rails db:create db:migrate
-      # - name: Rspec tests
-      #   run: bin/rake
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
+        with:
+          bundler-cache: true
+      - name: Rubocop
+        run: bin/bundle exec rubocop --require rubocop-rails
+      - name: Migration
+        run: bin/rails db:create db:migrate
+      - name: Rspec tests
+        run: bin/rake
