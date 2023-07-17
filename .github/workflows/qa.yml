@@ -2,8 +2,10 @@ name: "CI/CD with Qa"
 on:
   push:
     branches:
-      - main
+      - qa
   pull_request:
+    branches:
+      - qa
     types:
       - opened
       - synchronize
