@@ -1,0 +1,16 @@
+name: "CI/CD with Qa"
+
+on:
+  pull_request:
+    branches: ["lead-*"]
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Qa
+        run: echo "Deploy to Qa"
