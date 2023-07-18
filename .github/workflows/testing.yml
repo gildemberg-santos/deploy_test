@@ -2,9 +2,9 @@ name: "CI/CD with Testing"
 
 on:
   push:
-    branches: [ test ]
+    branches: [ qa, main ]
   pull_request:
-    branches: [ test ]
+    branches: [ '*' ]
     types:
       - opened
       - synchronize
@@ -37,4 +37,14 @@ jobs:
         run: bin/rails db:create db:migrate
       - name: Rspec tests
         run: bin/rake
+      - name: Send Event
+        run: |
+          REPO_OWNER="${{ github.repository_owner }}"
+          REPO_NAME="${{ github.event.repository.name }}"
+          TOKEN="${{ secrets.GITHUB_TOKEN }}"
+
+          curl -X POST -H "Authorization: token $TOKEN" \
+              -H "Accept: application/vnd.github.everest-preview+json" \
+              https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/dispatches \
+              -d '{"event_type": "deploy-event"}'
 

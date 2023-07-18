@@ -2,7 +2,7 @@ name: "CI/CD with Development"
 
 on:
   repository_dispatch:
-    if: github.event.pull_request.head.ref == '^lead-'
+    types: [deploy-event]
 
 jobs:
   deploy:
