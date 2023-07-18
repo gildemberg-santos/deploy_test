@@ -1,13 +1,15 @@
-name: "CI/CD with Development"
+name: "CI/CD with Testing"
 
 on:
+  push:
+    branches: [ qa, main ]
   pull_request:
     branches: ["*"]
     types:
       - opened
       - synchronize
 jobs:
-  test:
+  testing:
     name: Test
     runs-on: ubuntu-latest
     services:
@@ -25,9 +27,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      # - name: Teste
-      #   run: |
-      #     echo "${{ github.event.pull_request.head.ref }}"
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
         with:

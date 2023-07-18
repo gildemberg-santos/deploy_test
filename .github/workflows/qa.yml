@@ -3,31 +3,10 @@ on:
   push:
     branches: [ qa ]
 jobs:
-  test:
+  deploy:
+    needs: [testing]
     name: Test
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:11-alpine
-        ports:
-          - "5432:5432"
-        env:
-          POSTGRES_HOST: localhost
-          POSTGRES_USER: rails
-          POSTGRES_PASSWORD: password
-          POSTGRES_PORT: 5432
-          POSTGRES_DB: rails_test
-          POSTGRES_TIMEOUT: 5000
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
-        with:
-          bundler-cache: true
-      - name: Rubocop
-        run: bin/bundle exec rubocop --require rubocop-rails
-      - name: Migration
-        run: bin/rails db:create db:migrate
-      - name: Rspec tests
-        run: bin/rake
+      - name: Deploy to Qa
+        run: echo "Deploy to Qa"
