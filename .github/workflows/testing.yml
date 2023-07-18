@@ -8,6 +8,14 @@ on:
     types:
       - opened
       - synchronize
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Nome da branch'
+        required: true
+      environment:
+        description: 'Ambiente de deploy'
+        required: true
 jobs:
   testing:
     name: Test
