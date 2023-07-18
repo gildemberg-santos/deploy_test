@@ -10,7 +10,6 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    # if: ${{ github.head_ref == '^refs/heads/feature/' }}
     services:
       postgres:
         image: postgres:11-alpine
