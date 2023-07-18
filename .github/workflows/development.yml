@@ -1,7 +1,7 @@
 name: "CI/CD with Development"
 
 on:
-  workflow_dispatch:
+  repository_dispatch:
     if: github.event.pull_request.head.ref == '^lead-'
 
 jobs:
