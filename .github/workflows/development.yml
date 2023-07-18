@@ -2,7 +2,7 @@ name: "CI/CD with Development"
 
 on:
   pull_request:
-    branches: ["lead-*"]
+    branches: [ '^lead-*' ]
     types:
       - opened
       - synchronize
