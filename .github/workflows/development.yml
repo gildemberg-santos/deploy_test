@@ -2,7 +2,7 @@ name: "CI/CD with Development"
 
 on:
   pull_request:
-    branches: [ "*" ]
+    branches: ["*"]
     types:
       - opened
       - synchronize
@@ -10,6 +10,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    if: ${{ github.head_ref == '^refs/heads/feature/' }}
     services:
       postgres:
         image: postgres:11-alpine
@@ -24,11 +25,10 @@ jobs:
           POSTGRES_TIMEOUT: 5000
     steps:
       - name: Checkout code
-        if: ${{ github.head_ref == '^refs/heads/feature/' }}
         uses: actions/checkout@v3
-      - name: Teste
-        run: |
-          echo "${{ github.event.pull_request.head.ref }}"
+      # - name: Teste
+      #   run: |
+      #     echo "${{ github.event.pull_request.head.ref }}"
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
         with:
