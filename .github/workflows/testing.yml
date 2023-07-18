@@ -39,8 +39,5 @@ jobs:
         run: bin/rake
       - name: Send Event
         run: |
-          curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }} \
-              -H "Accept: application/vnd.github.everest-preview+json" \
-              https://api.github.com/repos/${{ github.repository_owner }}/${{ github.event.repository.name }}/dispatches \
-              -d '{"event_type": "deploy-event"}'
+          curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }} -H "Accept: application/vnd.github.everest-preview+json" https://api.github.com/repos/${{ github.repository_owner }}/${{ github.event.repository.name }}/dispatches -d '{"event_type": "deploy-event"}'
 
