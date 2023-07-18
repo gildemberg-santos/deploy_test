@@ -1,4 +1,4 @@
-name: "CI/CD with Qa"
+name: "CI/CD with Development"
 
 on:
   pull_request:
@@ -12,5 +12,5 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to Qa
-        run: echo "Deploy to Qa"
+      - name: Deploy to Development
+        run: echo "Deploy to Development"
