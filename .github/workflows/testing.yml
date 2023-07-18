@@ -2,9 +2,9 @@ name: "CI/CD with Testing"
 
 on:
   push:
-    branches: [ qa, main ]
+    branches: [ test ]
   pull_request:
-    branches: ["*"]
+    branches: [ test ]
     types:
       - opened
       - synchronize
