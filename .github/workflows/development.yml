@@ -1,11 +1,8 @@
 name: "CI/CD with Development"
 
 on:
-  pull_request:
-    branches: [ '^lead-*' ]
-    types:
-      - opened
-      - synchronize
+  workflow_dispatch:
+    if: github.event.pull_request.head.ref == '^lead-'
 
 jobs:
   deploy:
