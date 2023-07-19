@@ -33,6 +33,10 @@ jobs:
           bundler-cache: true
       - name: Pronto Staged
         run: bin/bundle exec pronto run --staged
+      - name: Pronto Unstaged
+        run: bin/bundle exec pronto run --unstaged
+      - name: Pronto Commit
+        run: bin/bundle exec pronto run --commit=$(git log --pretty=format:%H | tail -1)
       - name: Rubocop
         run: bin/bundle exec rubocop --require rubocop-rails
       - name: Migration
