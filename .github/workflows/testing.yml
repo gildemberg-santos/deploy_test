@@ -35,10 +35,21 @@ jobs:
         run: bin/bundle exec pronto run --staged
       - name: Pronto Unstaged
         run: bin/bundle exec pronto run --unstaged
-      - name: Pronto Commit
+      - name: Configurar Git
         run: |
-          first_commit=$(git log --pretty=format:%H origin/lead-0000..origin/qa | tail -1)
+          git config --global user.name "gildemberg-santos"
+          git config --global user.email "gildemberg.santos@gmail.com"
+      - name: Clonar Repositório
+        uses: actions/checkout@v2
+      - name: Verificar diff entre branches
+        run: |
+          first_commit=$(git log --pretty=format:%H ${{ github.event.before }}..${{ github.sha }} | tail -1)
+          echo "O hash do primeiro commit do diff é: $first_commit"
           bin/bundle exec pronto run --commit=$first_commit
+      # - name: Pronto Commit
+      #   run: |
+      #     first_commit=$(git log --pretty=format:%H 'origin/lead-0000..origin/qa' | tail -1)
+      #     bin/bundle exec pronto run --commit=$first_commit
         # run: bin/bundle exec pronto run --commit=$(git log 'origin/${{ github.head_ref }}..origin/${{ github.base_ref }}' --pretty=format:%H | tail -1)
       - name: Rubocop
         run: bin/bundle exec rubocop --require rubocop-rails
