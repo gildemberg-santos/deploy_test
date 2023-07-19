@@ -61,6 +61,7 @@ end
 
 group :development, :test do
   gem "pronto"
+  gem "faraday-retry"
   gem 'pronto-flay', require: false
   gem 'pronto-rubocop', require: false
   gem 'rspec-rails'

@@ -32,7 +32,7 @@ jobs:
         with:
           bundler-cache: true
       - name: Pronto Staged
-        run: pronto run --staged
+        run: bin/bundle exec pronto run --staged
       - name: Rubocop
         run: bin/bundle exec rubocop --require rubocop-rails
       - name: Migration
