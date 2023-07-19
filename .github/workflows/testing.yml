@@ -43,8 +43,10 @@ jobs:
         uses: actions/checkout@v2
       - name: Verificar diff entre branches
         run: |
+          first_commit_pr=$(${{ github.event.pull_request.base.sha }})
           first_commit=$(git log --pretty=format:%H ${{ github.event.before }}..${{ github.sha }} | tail -1)
           echo "O hash do primeiro commit do diff é: $first_commit"
+          echo "O hash do primeiro commit do diff é: $first_commit_pr"
           bin/bundle exec pronto run --commit=$first_commit
       # - name: Pronto Commit
       #   run: |
