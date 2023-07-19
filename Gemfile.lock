@@ -72,8 +72,6 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
-    faraday-retry (2.2.0)
-      faraday (~> 2.0)
     ffi (1.15.5)
     flay (2.13.0)
       erubi (~> 1.10)
@@ -284,7 +282,6 @@ DEPENDENCIES
   bundler-audit
   byebug
   coffee-rails (~> 4.2)
-  faraday-retry
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   pg (~> 1.5, >= 1.5.3)
@@ -295,7 +292,6 @@ DEPENDENCIES
   rails (~> 5.2.8, >= 5.2.8.1)
   rspec-rails
   rubocop-rails
-  rugged (~> 1.6, >= 1.6.3)
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
