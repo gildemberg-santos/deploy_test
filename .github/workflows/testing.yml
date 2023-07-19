@@ -31,12 +31,12 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+      - name: Pronto Staged
+        run: pronto run --staged
       - name: Rubocop
         run: bin/bundle exec rubocop --require rubocop-rails
       - name: Migration
         run: bin/rails db:create db:migrate
       - name: Rspec tests
         run: bin/rake
-      - name: Pronto Staged
-        run: pronto run --staged
 
