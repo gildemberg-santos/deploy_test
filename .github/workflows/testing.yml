@@ -37,6 +37,8 @@ jobs:
         run: bin/bundle exec pronto run --unstaged
       - name: Pronto Commit
         run: |
+          gem install bundler
+          gem update --system 3.2.3
           bin/bundle install
           bin/bundle exec pronto run --commit="${{ github.event.pull_request.base.sha }}"
         # run: bin/bundle exec pronto run --commit=$(git log 'origin/${{ github.head_ref }}..origin/${{ github.base_ref }}' --pretty=format:%H | tail -1)
