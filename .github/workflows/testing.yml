@@ -35,18 +35,8 @@ jobs:
         run: bin/bundle exec pronto run --staged
       - name: Pronto Unstaged
         run: bin/bundle exec pronto run --unstaged
-      # - name: Configurar Git
-      #   run: |
-      #     git config --global user.name "gildemberg-santos"
-      #     git config --global user.email "gildemberg.santos@gmail.com"
-      # - name: Clonar Repositório
-      #   uses: actions/checkout@v2
       - name: Pronto Commit
-        run: pronto run --commit=${{ github.event.pull_request.base.sha }}
-      # - name: Pronto Commit
-      #   run: |
-      #     first_commit=$(git log --pretty=format:%H 'origin/lead-0000..origin/qa' | tail -1)
-      #     bin/bundle exec pronto run --commit=$first_commit
+        run: bin/bundle exec pronto run --commit="${{ github.event.pull_request.base.sha }}"
         # run: bin/bundle exec pronto run --commit=$(git log 'origin/${{ github.head_ref }}..origin/${{ github.base_ref }}' --pretty=format:%H | tail -1)
       - name: Rubocop
         run: bin/bundle exec rubocop --require rubocop-rails
