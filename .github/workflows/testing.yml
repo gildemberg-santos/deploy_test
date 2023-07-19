@@ -36,7 +36,9 @@ jobs:
       - name: Pronto Unstaged
         run: bin/bundle exec pronto run --unstaged
       - name: Pronto Commit
-        run: bin/bundle exec pronto run --commit=$(git log --pretty=format:%H ^origin/${{ github.head_ref }} origin/${{ github.base_ref }} | tail -1)
+        env:
+          BRANCHES: ${{ github.head_ref }} ${{ github.base_ref }}
+        run: bin/bundle exec pronto run --commit=$(git log --pretty=format:%H $BRANCHES | tail -1)
       - name: Rubocop
         run: bin/bundle exec rubocop --require rubocop-rails
       - name: Migration
