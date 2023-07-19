@@ -31,18 +31,14 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      - name: Pronto Staged
-        run: bin/bundle exec pronto run --staged
-      - name: Pronto Unstaged
-        run: bin/bundle exec pronto run --unstaged
-      - name: Pronto Commit
-        run: |
-          bin/bundle exec pronto run --commit="11da6b944f5c726f58ef20092d91a76986aec0f8"
-        # run: bin/bundle exec pronto run --commit=$(git log 'origin/${{ github.head_ref }}..origin/${{ github.base_ref }}' --pretty=format:%H | tail -1)
       - name: Rubocop
         run: bin/bundle exec rubocop --require rubocop-rails
       - name: Migration
         run: bin/rails db:create db:migrate
       - name: Rspec tests
         run: bin/rake
+      - name: Pronto Commit
+        run: |
+          bin/bundle exec pronto run --commit="11da6b944f5c726f58ef20092d91a76986aec0f8"
+        # run: bin/bundle exec pronto run --commit=$(git log 'origin/${{ github.head_ref }}..origin/${{ github.base_ref }}' --pretty=format:%H | tail -1)
 
