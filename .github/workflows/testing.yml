@@ -42,7 +42,7 @@ jobs:
       # - name: Clonar Repositório
       #   uses: actions/checkout@v2
       - name: Pronto Commit
-        run: bin/bundle exec pronto run --commit=${{ github.event.pull_request.base.sha }}
+        run: pronto run --commit=${{ github.event.pull_request.base.sha }}
       # - name: Pronto Commit
       #   run: |
       #     first_commit=$(git log --pretty=format:%H 'origin/lead-0000..origin/qa' | tail -1)
