@@ -60,7 +60,7 @@ group :test do
 end
 
 group :development, :test do
-  gem 'pronto'
+  gem "pronto"
   gem 'pronto-flay', require: false
   gem 'pronto-rubocop', require: false
   gem 'rspec-rails'
