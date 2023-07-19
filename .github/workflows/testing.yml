@@ -56,8 +56,8 @@ jobs:
         uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
         with:
           bundler-cache: true
-      - name: Setup pronto
-        run: gem install pronto pronto-rubocop
+      # - name: Setup pronto
+      #   run: gem install pronto pronto-rubocop
       - name: Run Pronto
         run: pronto run -f github_status github_pr -c origin/${{ github.base_ref }}
         env:
