@@ -37,8 +37,22 @@ jobs:
         run: bin/rails db:create db:migrate
       - name: Rspec tests
         run: bin/rake
+      # - name: Pronto Commit
+      #   run: |
+      #     bin/bundle exec pronto run --commit="11da6b944f5c726f58ef20092d91a76986aec0f8"
+        # run: bin/bundle exec pronto run --commit=$(git log 'origin/${{ github.head_ref }}..origin/${{ github.base_ref }}' --pretty=format:%H | tail -1)
+  pronto:
+    name: Pronto
+    runs-on: ubuntu-latest
+    needs: testing
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Ruby and gems
+        run: |
+          gem install faraday-retry pronto pronto-rubocop
+        with:
+          bundler-cache: true
       - name: Pronto Commit
         run: |
-          bin/bundle exec pronto run --commit="11da6b944f5c726f58ef20092d91a76986aec0f8"
-        # run: bin/bundle exec pronto run --commit=$(git log 'origin/${{ github.head_ref }}..origin/${{ github.base_ref }}' --pretty=format:%H | tail -1)
-
+          bin/bundle exec pronto run --commit="${{ github.event.pull_request.base.sha }}"
