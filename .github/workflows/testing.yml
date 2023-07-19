@@ -51,8 +51,6 @@ jobs:
       - name: Install Ruby and gems
         run: |
           gem install faraday-retry pronto pronto-rubocop
-        with:
-          bundler-cache: true
       - name: Pronto Commit
         run: |
           bin/bundle exec pronto run --commit="${{ github.event.pull_request.base.sha }}"
