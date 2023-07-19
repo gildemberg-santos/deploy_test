@@ -60,6 +60,7 @@ group :test do
 end
 
 group :development, :test do
+  gem 'faraday-retry'
   gem 'pronto'
   gem 'pronto-flay', require: false
   gem 'pronto-rubocop', require: false
