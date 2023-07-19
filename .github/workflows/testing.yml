@@ -37,7 +37,7 @@ jobs:
         run: bin/bundle exec pronto run --unstaged
       - name: Pronto Commit
         run: |
-          bin/bundle exec pronto run --commit="${{ github.event.pull_request.from_sha }}"
+          bin/bundle exec pronto run --commit="11da6b944f5c726f58ef20092d91a76986aec0f8"
         # run: bin/bundle exec pronto run --commit=$(git log 'origin/${{ github.head_ref }}..origin/${{ github.base_ref }}' --pretty=format:%H | tail -1)
       - name: Rubocop
         run: bin/bundle exec rubocop --require rubocop-rails
