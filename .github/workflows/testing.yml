@@ -39,13 +39,14 @@ jobs:
         run: bin/rake
   pronto:
     runs-on: ubuntu-latest
+    needs: testing
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
       - run: |
           git fetch --no-tags --prune --depth=10 origin +refs/heads/*:refs/remotes/origin/*
-      - name: Setup pronto
-        run: gem install pronto pronto-rubocop
+      # - name: Setup pronto
+      #   run: gem install pronto pronto-rubocop
       - name: Run Pronto
         run: pronto run -f github_status github_pr -c origin/${{ github.base_ref }}
         env:
