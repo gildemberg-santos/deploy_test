@@ -1,0 +1,5 @@
+rubocop:
+  severities:
+    refactor: info
+    warning: error
+  suggestions: true

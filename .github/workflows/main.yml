@@ -1,25 +1,25 @@
 # TODO: Apenas um exemplo, vai precisar de ajustes
-name: "CI/CD with Qa"
+name: "CI/CD with Main"
 
 on:
   push:
-    branches: [ qa ]
+    branches: [ main ]
 
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    if: ${{ (github.event_name == 'push' && (github.ref == 'refs/heads/qa' || github.ref == '^refs/heads/qa_')) }}
+    if: ${{ (github.event_name == 'push' && (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
     steps:
       - name: Verify Environment
         uses: actions/checkout@v3
-      - name: Migrate QA
+      - name: Migrate Main
         run: echo "Rode as migrations"
-      - name: Data Migrate QA
+      - name: Data Migrate Main
         run: echo "Rode as data migrations"
-      - name: Deploy Qa
+      - name: Deploy Main
         run: |
-          echo "Faça deploy para QA"
+          echo "Faça deploy para Main"
           # gcloud beta run jobs create neurolead-migration-job \
           # --image ${{ vars.IMAGE_DOCKFILE_APPLICATION }} \
           # --command "bundle exec rake db:migrate" \
