@@ -12,7 +12,7 @@ jobs:
   job:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
     - uses: ./.github/workflows/composite-action
 
   # test:
