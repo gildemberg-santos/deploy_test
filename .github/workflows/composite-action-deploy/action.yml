@@ -1,4 +1,4 @@
-name: "My composite action test"
+name: "My composite action deploy"
 description: "Checks out the repository and does something"
 runs:
   using: "composite"
