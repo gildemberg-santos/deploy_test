@@ -1,9 +1,0 @@
-name: "Composite Action Deploy Qa"
-description: "Runs deploy qa"
-runs:
-  using: "composite"
-  steps:
-  - uses: actions/checkout@v3
-  - run: |
-      echo "Executing action deploy qa"
-    shell: bash
