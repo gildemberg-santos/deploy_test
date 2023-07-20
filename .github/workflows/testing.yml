@@ -3,10 +3,9 @@ name: "CI/CD with Testing"
 on:
   pull_request:
     branches:
-      - "*"
-    branches-ignore:
-      - qa
-      - main
+      - "!lead-**"
+      - "!qa"
+      - "!main"
     types:
       - opened
       - synchronize
@@ -27,7 +26,5 @@ jobs:
           POSTGRES_DB: rails_test
           POSTGRES_TIMEOUT: 5000
     steps:
-    - uses: actions/checkout@v3
-    - uses: ./.github/workflows/composite-action-test
-
-
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/composite-action-test
