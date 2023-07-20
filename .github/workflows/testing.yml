@@ -4,8 +4,6 @@ on:
   pull_request:
     branches:
       - "lead-**"
-      - "!qa"
-      - "!main"
     types:
       - opened
       - synchronize
