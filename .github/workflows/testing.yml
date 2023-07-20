@@ -9,21 +9,8 @@ on:
       - opened
       - synchronize
 jobs:
-  test:
-    name: Test
+  job:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:11-alpine
-        ports:
-          - "5432:5432"
-        env:
-          POSTGRES_HOST: localhost
-          POSTGRES_USER: rails
-          POSTGRES_PASSWORD: password
-          POSTGRES_PORT: 5432
-          POSTGRES_DB: rails_test
-          POSTGRES_TIMEOUT: 5000
     steps:
     - uses: actions/checkout@v3
     - uses: ./.github/workflows/composite-action
