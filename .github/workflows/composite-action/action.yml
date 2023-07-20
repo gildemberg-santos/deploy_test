@@ -1,9 +1,0 @@
-name: "My composite action"
-description: "Checks out the repository and does something"
-runs:
-  using: "composite"
-  steps:
-  - uses: actions/checkout@v3
-  - run: |
-      echo "Executing action"
-    shell: bash

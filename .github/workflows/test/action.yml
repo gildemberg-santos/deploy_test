@@ -1,32 +1,23 @@
-name: "CI/CD with Testing"
+name: "Composite Action Test"
+description: "Runs tests"
+runs:
+  using: "composite"
+  steps:
+  - uses: actions/checkout@v3
+  - uses: ruby/setup-ruby@v1
+    with:
+      bundler-cache: true
+  - name: Rubocop
+    run: bin/bundle exec rubocop --require rubocop-rails
+    shell: bash
+  - name: Migration
+    run: bin/rails db:create db:migrate
+    shell: bash
+  - name: Rspec tests
+    run: bin/rake
+    shell: bash
 
-on:
-  pull_request:
-    branches-ignore:
-      - qa
-      - main
-    types:
-      - opened
-      - synchronize
-jobs:
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:11-alpine
-        ports:
-          - "5432:5432"
-        env:
-          POSTGRES_HOST: localhost
-          POSTGRES_USER: rails
-          POSTGRES_PASSWORD: password
-          POSTGRES_PORT: 5432
-          POSTGRES_DB: rails_test
-          POSTGRES_TIMEOUT: 5000
-    steps:
-    - uses: actions/checkout@v3
-    - uses: ./.github/workflows/composite-action
+
 
   # test:
   #   name: Test
@@ -58,5 +49,3 @@ jobs:
   #       run: bin/rake
   #   outputs:
   #     test-passed: ${{ steps.test.result == 'success' }}
-
-
