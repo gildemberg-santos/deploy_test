@@ -1,11 +1,12 @@
 name: "CI/CD with Testing"
 
 on:
+  push:
+    branches:
+      - "*"
   pull_request:
     branches:
-      - '*'
-      - '!qa'
-      - '!main'
+      - "*"
     types:
       - opened
       - synchronize
@@ -15,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:11-alpine
+        image: postgres:13.9
         ports:
           - "5432:5432"
         env:
