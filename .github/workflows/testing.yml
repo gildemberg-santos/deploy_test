@@ -3,7 +3,7 @@ name: "CI/CD with Testing"
 on:
   pull_request:
     branches:
-      - "!lead-**"
+      - "lead-**"
       - "!qa"
       - "!main"
     types:
