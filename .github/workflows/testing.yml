@@ -2,8 +2,10 @@ name: "CI/CD with Testing"
 
 on:
   pull_request:
-    branches:
-      - "lead-**"
+    branches-ignore:
+      - "!lead-**"
+      - qa
+      - main
     types:
       - opened
       - synchronize
