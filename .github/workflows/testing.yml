@@ -37,7 +37,7 @@ jobs:
         run: bin/rails db:create db:migrate
       - name: Rspec tests
         run: bin/rake
-  outputs:
-    test-passed: ${{ steps.test.result == 'success' }}
+    outputs:
+      test-passed: ${{ steps.test.result == 'success' }}
 
 
