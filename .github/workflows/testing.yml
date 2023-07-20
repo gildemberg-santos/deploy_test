@@ -9,11 +9,11 @@ on:
       - opened
       - synchronize
 jobs:
-  test:
+  job:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: ./.github/workflows/actions/unittest.yml
+    - uses: actions/checkout@v2
+    - uses: ./.github/workflows/composite-action
 
   # test:
   #   name: Test
