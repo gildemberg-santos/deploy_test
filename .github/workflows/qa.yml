@@ -9,6 +9,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    needs: Test
     if: ${{ (github.event_name == 'push' && (github.ref == 'refs/heads/qa' || github.ref == '^refs/heads/qa_')) }}
     steps:
       - name: Verify Environment
@@ -24,3 +25,5 @@ jobs:
           # --image ${{ vars.IMAGE_DOCKFILE_APPLICATION }} \
           # --command "bundle exec rake db:migrate" \
           # --execute-now --wait
+      - name: Ta
+        run: echo "${{needs.test.outputs.test-passed}}"
