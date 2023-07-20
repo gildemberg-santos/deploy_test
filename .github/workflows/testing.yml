@@ -26,7 +26,7 @@ jobs:
           POSTGRES_TIMEOUT: 5000
     steps:
     - uses: actions/checkout@v3
-    - uses: ./.github/workflows/composite-action-test
+    - uses: ./.github/workflows/composite-action
 
   # test:
   #   name: Test
