@@ -25,3 +25,5 @@ jobs:
           # --image ${{ vars.IMAGE_DOCKFILE_APPLICATION }} \
           # --command "bundle exec rake db:migrate" \
           # --execute-now --wait
+      - name: Ta
+        run: echo "${{needs.test.outputs.test-passed}}"
