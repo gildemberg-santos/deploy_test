@@ -3,7 +3,6 @@ name: "CI/CD with Testing"
 on:
   pull_request:
     branches-ignore:
-      - "!lead-0000"
       - qa
       - main
     types:
