@@ -9,7 +9,7 @@ on:
       - opened
       - synchronize
 jobs:
-  testing:
+  test:
     name: Test
     runs-on: ubuntu-latest
     services:
@@ -37,15 +37,7 @@ jobs:
         run: bin/rails db:create db:migrate
       - name: Rspec tests
         run: bin/rake
-  events:
-    runs-on: ubuntu-latest
-    name: Evento de Deploy
-    needs: testing
-    steps:
-      - name: Disparar Deploy
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ github.token }}
-          repository: ${{ github.repository }}
-          event-type: deploy-event
+  outputs:
+    test-passed: ${{ steps.test.result == 'success' }}
+
 
