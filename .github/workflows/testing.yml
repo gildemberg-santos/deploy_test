@@ -2,9 +2,11 @@ name: "CI/CD with Testing"
 
 on:
   push:
-    branches: [ qa, main ]
+    branches:
+      - "*"
   pull_request:
-    branches: [ '*' ]
+    branches:
+      - "*"
     types:
       - opened
       - synchronize
@@ -14,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:11-alpine
+        image: postgres:13.9
         ports:
           - "5432:5432"
         env:
@@ -25,19 +27,5 @@ jobs:
           POSTGRES_DB: rails_test
           POSTGRES_TIMEOUT: 5000
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-      - name: Rubocop
-        run: bin/bundle exec rubocop --require rubocop-rails
-      - name: Migration
-        run: bin/rails db:create db:migrate
-      - name: Rspec tests
-        run: bin/rake
-    outputs:
-      test-passed: ${{ steps.test.result == 'success' }}
-
-
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/composite-action-test
